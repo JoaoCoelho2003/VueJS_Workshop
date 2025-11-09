@@ -12,10 +12,15 @@ interface Props {
 
 defineProps<Props>();
 
-// TODO: Define emit for 'changeFilter' event that passes a TaskFilter value
+// ===== SOLUTION =====
+const emit = defineEmits<{
+  'changeFilter': [filter: TaskFilter]
+}>();
 
-// TODO: Create a function 'handleFilterChange' that emits the changeFilter event
-
+function handleFilterChange(filter: TaskFilter) {
+  emit('changeFilter', filter);
+}
+// ===== END SOLUTION =====
 </script>
 
 <template>
@@ -23,8 +28,9 @@ defineProps<Props>();
     <h3 class="text-lg font-semibold text-gray-800 mb-4">Filter Tasks</h3>
     
     <div class="space-y-2">
-      <!-- TODO: Add @click handler to change filter to 'all' -->
+      <!-- ===== SOLUTION ===== -->
       <button 
+        @click="handleFilterChange('all')"
         class="w-full text-left px-4 py-2 rounded-md transition-colors"
         :class="currentFilter === 'all' 
           ? 'bg-indigo-600 text-white' 
@@ -36,8 +42,8 @@ defineProps<Props>();
         </span>
       </button>
 
-      <!-- TODO: Add @click handler to change filter to 'active' -->
       <button 
+        @click="handleFilterChange('active')"
         class="w-full text-left px-4 py-2 rounded-md transition-colors"
         :class="currentFilter === 'active' 
           ? 'bg-indigo-600 text-white' 
@@ -49,8 +55,8 @@ defineProps<Props>();
         </span>
       </button>
 
-      <!-- TODO: Add @click handler to change filter to 'completed' -->
       <button 
+        @click="handleFilterChange('completed')"
         class="w-full text-left px-4 py-2 rounded-md transition-colors"
         :class="currentFilter === 'completed' 
           ? 'bg-indigo-600 text-white' 
@@ -61,6 +67,7 @@ defineProps<Props>();
           <span class="text-sm font-semibold">{{ taskCounts.completed }}</span>
         </span>
       </button>
+      <!-- ===== END SOLUTION ===== -->
     </div>
   </div>
 </template>

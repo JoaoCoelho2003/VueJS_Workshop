@@ -1,66 +1,85 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue';
+import { ref, computed, onMounted, watch, watchEffect } from 'vue';
 import type { Task, TaskFilter } from '../types/task';
 import DefaultLayout from '../layouts/defaultLayout.vue';
 import TaskForm from '../components/TaskForm.vue';
 import TaskList from '../components/TaskList.vue';
 import TaskFilters from '../components/TaskFilters.vue';
 
-// State
 const tasks = ref<Task[]>([]);
 const currentFilter = ref<TaskFilter>('all');
 const isModalOpen = ref(false);
 const searchQuery = ref('');
 
-// TODO: Create a computed property 'taskCounts' that returns an object with:
-// - all: total number of tasks
-// - active: number of tasks where completed is false
-// - completed: number of tasks where completed is true
+// ===== SOLUTION =====
+const taskCounts = computed(() => ({
+  all: tasks.value.length,
+  active: tasks.value.filter(t => !t.completed).length,
+  completed: tasks.value.filter(t => t.completed).length
+}));
 
-// TODO: Create a computed property 'filteredBySearch' that:
-// - Returns all tasks if searchQuery is empty
-// - Otherwise returns tasks where title or category includes the searchQuery (case-insensitive)
+const filteredBySearch = computed(() => {
+  if (!searchQuery.value.trim()) {
+    return tasks.value;
+  }
+  const query = searchQuery.value.toLowerCase();
+  return tasks.value.filter(task =>
+    task.title.toLowerCase().includes(query) ||
+    task.category.toLowerCase().includes(query)
+  );
+});
 
-// Load tasks from localStorage on mount
 onMounted(() => {
-  // TODO: Use onMounted lifecycle hook to load tasks from localStorage
-  // Get item with key 'vue-tasks' and parse it as JSON
-  // If it exists and is an array, convert createdAt strings back to Date objects
-  // and assign to tasks.value
-  
+  const stored = localStorage.getItem('vue-tasks');
+  if (stored) {
+    try {
+      const parsed = JSON.parse(stored);
+      if (Array.isArray(parsed)) {
+        tasks.value = parsed.map(task => ({
+          ...task,
+          createdAt: new Date(task.createdAt)
+        }));
+      }
+    } catch (e) {
+      console.error('Failed to load tasks:', e);
+    }
+  }
   console.log('Component mounted');
 });
 
-// TODO: Use watch to save tasks to localStorage whenever tasks array changes
-// watch(tasks, (newTasks) => { ... }, { deep: true })
-// Save to localStorage with key 'vue-tasks'
+watch(tasks, (newTasks) => {
+  localStorage.setItem('vue-tasks', JSON.stringify(newTasks));
+}, { deep: true });
 
-// TODO: Use watchEffect to log the current filter whenever it changes
-// This is just for learning purposes
-// watchEffect(() => { console.log('Current filter:', currentFilter.value) })
+watchEffect(() => {
+  console.log('Current filter:', currentFilter.value);
+});
 
-// Functions
 const openModal = () => {
   isModalOpen.value = true;
 };
 
 const handleTaskCreated = (task: Task) => {
-  // TODO: Add the new task to the tasks array
+  tasks.value.push(task);
 };
 
 const handleToggleTask = (id: number) => {
-  // TODO: Find the task by id and toggle its completed status
+  const task = tasks.value.find(t => t.id === id);
+  if (task) {
+    task.completed = !task.completed;
+  }
 };
 
 const handleDeleteTask = (id: number) => {
-  // TODO: Remove the task with the given id from the tasks array
+  tasks.value = tasks.value.filter(t => t.id !== id);
 };
 
 const handleFilterChange = (filter: TaskFilter) => {
   currentFilter.value = filter;
 };
 
-// TODO: Create a computed property 'hasAnyTasks' that returns true if tasks array is not empty
+const hasAnyTasks = computed(() => tasks.value.length > 0);
+// ===== END SOLUTION =====
 </script>
 
 <template>
@@ -99,33 +118,34 @@ const handleFilterChange = (filter: TaskFilter) => {
 
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
       <div class="lg:col-span-1">
-        <!-- TODO: Pass the correct props to TaskFilters -->
-        <!-- It needs currentFilter and taskCounts -->
-        <!-- Also listen to the @changeFilter event -->
+        <!-- ===== SOLUTION ===== -->
         <TaskFilters 
           :current-filter="currentFilter"
-          :task-counts="{ all: 0, active: 0, completed: 0 }"
+          :task-counts="taskCounts"
+          @change-filter="handleFilterChange"
         />
+        <!-- ===== END SOLUTION ===== -->
       </div>
 
       <div class="lg:col-span-3">
-        <!-- TODO: Pass the filteredBySearch tasks to TaskList (not just tasks) -->
-        <!-- Also pass the currentFilter and listen to @toggleTask and @deleteTask events -->
+        <!-- ===== SOLUTION ===== -->
         <TaskList 
-          :tasks="tasks"
+          :tasks="filteredBySearch"
           :filter="currentFilter"
+          @toggle-task="handleToggleTask"
+          @delete-task="handleDeleteTask"
         />
+        <!-- ===== END SOLUTION ===== -->
       </div>
     </div>
 
-    <!-- Task Form Modal -->
-    <!-- TODO: Add v-if directive to only render modal when isModalOpen is true -->
-    <!-- TODO: Use v-model for two-way binding with isModalOpen (or use :model-value and @update:model-value) -->
-    <!-- TODO: Listen to @taskCreated event -->
+    <!-- ===== SOLUTION ===== -->
     <TaskForm
-      :model-value="isModalOpen"
-      @update:model-value="isModalOpen = $event"
+      v-if="isModalOpen"
+      v-model="isModalOpen"
+      @task-created="handleTaskCreated"
     />
+    <!-- ===== END SOLUTION ===== -->
     </div>
   </DefaultLayout>
 </template>

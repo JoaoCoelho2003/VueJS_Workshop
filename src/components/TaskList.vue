@@ -3,7 +3,6 @@ import { computed } from 'vue';
 import type { Task, TaskFilter } from '../types/task';
 import TaskItem from './TaskItem.vue';
 
-// Define props
 interface Props {
   tasks: Task[];
   filter: TaskFilter;
@@ -11,30 +10,41 @@ interface Props {
 
 const props = defineProps<Props>();
 
-// TODO: Define emits for 'toggleTask' and 'deleteTask'
-// Both should pass the task id (number)
+// ===== SOLUTION =====
+const emit = defineEmits<{
+  'toggleTask': [id: number]
+  'deleteTask': [id: number]
+}>();
 
-// TODO: Create a computed property 'filteredTasks' that:
-// - Returns all tasks when filter is 'all'
-// - Returns only incomplete tasks (completed: false) when filter is 'active'
-// - Returns only completed tasks (completed: true) when filter is 'completed'
+const filteredTasks = computed(() => {
+  if (props.filter === 'all') {
+    return props.tasks;
+  } else if (props.filter === 'active') {
+    return props.tasks.filter(task => !task.completed);
+  } else if (props.filter === 'completed') {
+    return props.tasks.filter(task => task.completed);
+  }
+  return props.tasks;
+});
 
-// TODO: Create a computed property 'isEmpty' that returns true when filteredTasks has no items
+const isEmpty = computed(() => {
+  return filteredTasks.value.length === 0;
+});
 
-// Functions to handle events from TaskItem
 const handleToggle = (id: number) => {
-  // TODO: Emit 'toggleTask' event with the id
+  emit('toggleTask', id);
 };
 
 const handleDelete = (id: number) => {
-  // TODO: Emit 'deleteTask' event with the id
+  emit('deleteTask', id);
 };
+// ===== END SOLUTION =====
 </script>
 
 <template>
   <div class="space-y-4">
-    <!-- TODO: Use v-if to show this only when isEmpty is true -->
-    <div class="text-center py-12">
+    <!-- ===== SOLUTION ===== -->
+    <div v-if="isEmpty" class="text-center py-12">
       <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
       </svg>
@@ -44,10 +54,15 @@ const handleDelete = (id: number) => {
       </p>
     </div>
 
-    <!-- Task List -->
-    <!-- TODO: Use v-else and v-for to render TaskItem components for each task in filteredTasks -->
-    <!-- Don't forget to use :key with a unique identifier -->
-    <!-- Pass the task as a prop and listen to @toggle and @delete events -->
-    
+    <div v-else>
+      <TaskItem 
+        v-for="task in filteredTasks"
+        :key="task.id"
+        :task="task"
+        @toggle="handleToggle"
+        @delete="handleDelete"
+      />
+    </div>
+    <!-- ===== END SOLUTION ===== -->
   </div>
 </template>

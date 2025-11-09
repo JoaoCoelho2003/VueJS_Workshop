@@ -1,28 +1,30 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import type { Task } from '../types/task';
 
 interface Props {
   modelValue: boolean;
 }
 
-// TODO: Define the emits for 'update:modelValue' and 'taskCreated'
-// The 'taskCreated' event should pass a Task object
-const emit = defineEmits(['update:modelValue']);
+defineProps<Props>();
 
-const props = defineProps<Props>();
+// ===== SOLUTION =====
+const emit = defineEmits<{
+  'update:modelValue': [value: boolean]
+  'taskCreated': [task: Task]
+}>();
 
 const title = ref('');
 const description = ref('');
 const priority = ref<'low' | 'medium' | 'high'>('medium');
 const category = ref('');
 
-// TODO: Create a computed property for 'isFormValid'
-// It should return true only if title has at least 3 characters
-// and category is not empty
+const isFormValid = computed(() => {
+  return title.value.trim().length >= 3 && category.value.trim().length > 0;
+});
 
 const closeModal = () => {
-  // TODO: Emit the 'update:modelValue' event with false to close the modal
+  emit('update:modelValue', false);
 };
 
 const resetForm = () => {
@@ -33,18 +35,23 @@ const resetForm = () => {
 };
 
 const handleSubmit = () => {
-  // TODO: Create a new task object with:
-  // - id: Date.now()
-  // - title, description, priority, category from form fields
-  // - completed: false
-  // - createdAt: new Date()
-  
-  // TODO: Emit the 'taskCreated' event with the new task
-  
-  // TODO: Reset the form and close the modal
-  
-  console.log('Form submitted!');
+  if (!isFormValid.value) return;
+
+  const newTask: Task = {
+    id: Date.now(),
+    title: title.value.trim(),
+    description: description.value.trim(),
+    priority: priority.value,
+    category: category.value.trim(),
+    completed: false,
+    createdAt: new Date()
+  };
+
+  emit('taskCreated', newTask);
+  resetForm();
+  closeModal();
 };
+// ===== END SOLUTION =====
 </script>
 
 <template>
@@ -67,25 +74,29 @@ const handleSubmit = () => {
           <label class="block text-sm font-medium text-gray-700 mb-1">
             Title *
           </label>
-          <!-- TODO: Use v-model to bind the title ref -->
+          <!-- ===== SOLUTION ===== -->
           <input 
+            v-model="title"
             type="text"
             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
             placeholder="Enter task title"
             required
           />
+          <!-- ===== END SOLUTION ===== -->
         </div>
 
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">
             Description
           </label>
-          <!-- TODO: Use v-model to bind the description ref -->
+          <!-- ===== SOLUTION ===== -->
           <textarea 
+            v-model="description"
             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
             rows="3"
             placeholder="Enter task description"
           ></textarea>
+          <!-- ===== END SOLUTION ===== -->
         </div>
 
         <div>
@@ -106,13 +117,15 @@ const handleSubmit = () => {
           <label class="block text-sm font-medium text-gray-700 mb-1">
             Category *
           </label>
-          <!-- TODO: Use v-model to bind the category ref -->
+          <!-- ===== SOLUTION ===== -->
           <input 
+            v-model="category"
             type="text"
             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
             placeholder="e.g., Work, Personal, Study"
             required
           />
+          <!-- ===== END SOLUTION ===== -->
         </div>
 
         <div class="flex justify-end space-x-3 pt-4">
@@ -123,13 +136,15 @@ const handleSubmit = () => {
           >
             Cancel
           </button>
-          <!-- TODO: Disable this button when isFormValid is false -->
+          <!-- ===== SOLUTION ===== -->
           <button 
             type="submit"
+            :disabled="!isFormValid"
             class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Create Task
           </button>
+          <!-- ===== END SOLUTION ===== -->
         </div>
       </form>
     </div>
