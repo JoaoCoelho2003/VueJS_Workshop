@@ -120,11 +120,9 @@ const handleFilterChange = (filter: TaskFilter) => {
 
     <!-- Task Form Modal -->
     <!-- TODO: Add v-if directive to only render modal when isModalOpen is true -->
-    <!-- TODO: Use v-model for two-way binding with isModalOpen (or use :model-value and @update:model-value) -->
     <!-- TODO: Listen to @taskCreated event -->
     <TaskForm
-      :model-value="isModalOpen"
-      @update:model-value="isModalOpen = $event"
+      @update:model-value="isModalOpen = !isModalOpen"
     />
     </div>
   </DefaultLayout>

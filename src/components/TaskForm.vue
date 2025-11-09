@@ -2,15 +2,9 @@
 import { ref } from 'vue';
 import type { Task } from '../types/task';
 
-interface Props {
-  modelValue: boolean;
-}
-
 // TODO: Define the emits for 'update:modelValue' and 'taskCreated'
 // The 'taskCreated' event should pass a Task object
 const emit = defineEmits(['update:modelValue']);
-
-const props = defineProps<Props>();
 
 const title = ref('');
 const description = ref('');
