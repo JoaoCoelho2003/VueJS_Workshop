@@ -78,7 +78,6 @@ const handleFilterChange = (filter: TaskFilter) => {
   currentFilter.value = filter;
 };
 
-const hasAnyTasks = computed(() => tasks.value.length > 0);
 // ===== END SOLUTION =====
 </script>
 
