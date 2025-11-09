@@ -1,0 +1,44 @@
+<script setup lang="ts">
+// TODO: This is the BONUS CHALLENGE page!
+// Students should create this page from scratch based on what they learned
+
+// HINTS:
+// 1. Import necessary functions from Vue (ref, computed, onMounted, etc.)
+// 2. Import the Task type from '../types/task'
+// 3. Load tasks from localStorage (similar to Home.vue)
+// 4. Create computed properties for statistics:
+//    - Total tasks
+//    - Completed tasks
+//    - Active tasks
+//    - Completion rate (percentage)
+//    - Tasks by priority (count for each priority level)
+//    - Tasks by category (count for each unique category)
+// 5. Use Tailwind CSS for styling (cards, grids, colors)
+// 6. Display the statistics in a visually appealing way
+
+// BONUS POINTS:
+// - Add a simple bar chart representation using CSS
+// - Show the most productive category
+// - Display creation dates in a readable format
+// - Add animations or transitions
+
+</script>
+
+<template>
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold text-gray-900 mb-2">Task Statistics</h1>
+      <p class="text-gray-600">Overview of your task management performance</p>
+    </div>
+
+    <!-- TODO: Implement the statistics page here -->
+    <div class="bg-white rounded-lg shadow-md p-8 text-center">
+      <p class="text-gray-500 text-lg">
+        🎯 This page is part of the bonus challenge!
+      </p>
+      <p class="text-gray-600 mt-2">
+        Create a statistics dashboard that displays insights about your tasks.
+      </p>
+    </div>
+  </div>
+</template>
