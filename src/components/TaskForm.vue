@@ -2,15 +2,9 @@
 import { ref, computed } from 'vue';
 import type { Task } from '../types/task';
 
-interface Props {
-  modelValue: boolean;
-}
-
-defineProps<Props>();
-
 // ===== SOLUTION =====
 const emit = defineEmits<{
-  'update:modelValue': [value: boolean]
+  'update:modelValue': []
   'taskCreated': [task: Task]
 }>();
 
@@ -24,7 +18,7 @@ const isFormValid = computed(() => {
 });
 
 const closeModal = () => {
-  emit('update:modelValue', false);
+  emit('update:modelValue');
 };
 
 const resetForm = () => {

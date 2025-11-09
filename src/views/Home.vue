@@ -141,7 +141,7 @@ const handleFilterChange = (filter: TaskFilter) => {
     <!-- ===== SOLUTION ===== -->
     <TaskForm
       v-if="isModalOpen"
-      v-model="isModalOpen"
+      @update:model-value="isModalOpen = !isModalOpen"
       @task-created="handleTaskCreated"
     />
     <!-- ===== END SOLUTION ===== -->
