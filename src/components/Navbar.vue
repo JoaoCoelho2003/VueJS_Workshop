@@ -26,11 +26,12 @@ const isActive = computed(() => (path: string) => {
         </div>
 
         <div class="hidden md:flex space-x-4">
+          <!-- ===== SOLUTION ===== -->
           <RouterLink 
             to="/" 
             :class="[
               'px-3 py-2 rounded-md text-sm font-medium transition-colors',
-              route.path === '/' 
+              isActive('/') 
                 ? 'bg-indigo-600 text-white' 
                 : 'text-gray-700 hover:bg-indigo-100'
             ]"
@@ -38,12 +39,11 @@ const isActive = computed(() => (path: string) => {
             Tasks
           </RouterLink>
           
-          <!-- ===== SOLUTION ===== -->
           <RouterLink 
             to="/statistics" 
             :class="[
               'px-3 py-2 rounded-md text-sm font-medium transition-colors',
-              route.path === '/statistics' 
+              isActive('/statistics') 
                 ? 'bg-indigo-600 text-white' 
                 : 'text-gray-700 hover:bg-indigo-100'
             ]"
