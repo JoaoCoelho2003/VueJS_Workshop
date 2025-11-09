@@ -2,19 +2,16 @@
 import { ref } from 'vue';
 import type { Task } from '../types/task';
 
-// Define props
 interface Props {
   modelValue: boolean;
 }
 
-// Define emits
 // TODO: Define the emits for 'update:modelValue' and 'taskCreated'
 // The 'taskCreated' event should pass a Task object
 const emit = defineEmits(['update:modelValue']);
 
 const props = defineProps<Props>();
 
-// Form fields
 const title = ref('');
 const description = ref('');
 const priority = ref<'low' | 'medium' | 'high'>('medium');
@@ -54,7 +51,6 @@ const handleSubmit = () => {
   <!-- TODO: Use v-if directive to show modal only when modelValue is true -->
   <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
     <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4">
-      <!-- Modal Header -->
       <div class="flex justify-between items-center p-6 border-b">
         <h2 class="text-xl font-semibold text-gray-800">Create New Task</h2>
         <button 
@@ -67,9 +63,7 @@ const handleSubmit = () => {
         </button>
       </div>
 
-      <!-- Modal Body -->
       <form @submit.prevent="handleSubmit" class="p-6 space-y-4">
-        <!-- Title Input -->
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">
             Title *
@@ -83,7 +77,6 @@ const handleSubmit = () => {
           />
         </div>
 
-        <!-- Description Input -->
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">
             Description
@@ -96,7 +89,6 @@ const handleSubmit = () => {
           ></textarea>
         </div>
 
-        <!-- Priority Select -->
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">
             Priority
@@ -111,7 +103,6 @@ const handleSubmit = () => {
           </select>
         </div>
 
-        <!-- Category Input -->
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-1">
             Category *
@@ -125,7 +116,6 @@ const handleSubmit = () => {
           />
         </div>
 
-        <!-- Submit Button -->
         <div class="flex justify-end space-x-3 pt-4">
           <button 
             type="button"

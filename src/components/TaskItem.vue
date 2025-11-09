@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { Task } from '../types/task';
 
-// Define props
 interface Props {
   task: Task;
 }
@@ -34,7 +33,6 @@ defineProps<Props>();
   >
     <div class="flex items-start justify-between">
       <div class="flex items-start space-x-3 flex-1">
-        <!-- Checkbox -->
         <!-- TODO: Add @click handler to toggle task completion -->
         <input 
           type="checkbox"
@@ -42,7 +40,6 @@ defineProps<Props>();
           class="mt-1 h-5 w-5 text-indigo-600 rounded focus:ring-indigo-500 cursor-pointer"
         />
         
-        <!-- Task Content -->
         <div class="flex-1">
           <h3 
             class="text-lg font-semibold"
@@ -57,13 +54,11 @@ defineProps<Props>();
           </p>
           
           <div class="flex flex-wrap gap-2 mt-3">
-            <!-- Priority Badge -->
             <!-- TODO: Use v-bind or : to dynamically bind the priorityColor computed property -->
             <span class="px-2 py-1 text-xs font-semibold rounded-full">
               {{ task.priority.toUpperCase() }}
             </span>
             
-            <!-- Category Badge -->
             <span class="px-2 py-1 text-xs font-semibold rounded-full bg-indigo-100 text-indigo-800">
               {{ task.category }}
             </span>
@@ -71,7 +66,6 @@ defineProps<Props>();
         </div>
       </div>
 
-      <!-- Delete Button -->
       <!-- TODO: Add @click handler to delete the task -->
       <button 
         class="text-red-500 hover:text-red-700 transition-colors ml-2"

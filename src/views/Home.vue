@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue';
 import type { Task, TaskFilter } from '../types/task';
+import DefaultLayout from '../layouts/defaultLayout.vue';
 import TaskForm from '../components/TaskForm.vue';
 import TaskList from '../components/TaskList.vue';
 import TaskFilters from '../components/TaskFilters.vue';
@@ -63,16 +64,14 @@ const handleFilterChange = (filter: TaskFilter) => {
 </script>
 
 <template>
-  <div class="max-w-7xl mx-auto">
-    <!-- Header -->
+  <DefaultLayout>
+    <div class="max-w-7xl mx-auto">
     <div class="mb-8">
       <h1 class="text-4xl font-bold text-gray-900 mb-2">My Tasks</h1>
       <p class="text-gray-600">Organize and track your daily tasks efficiently</p>
     </div>
 
-    <!-- Search and Create Section -->
     <div class="mb-6 flex flex-col sm:flex-row gap-4">
-      <!-- Search Input -->
       <div class="flex-1">
         <div class="relative">
           <input 
@@ -87,7 +86,6 @@ const handleFilterChange = (filter: TaskFilter) => {
         </div>
       </div>
 
-      <!-- Create Task Button -->
       <button 
         @click="openModal"
         class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center space-x-2"
@@ -99,9 +97,7 @@ const handleFilterChange = (filter: TaskFilter) => {
       </button>
     </div>
 
-    <!-- Main Content Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-      <!-- Sidebar - Filters -->
       <div class="lg:col-span-1">
         <!-- TODO: Pass the correct props to TaskFilters -->
         <!-- It needs currentFilter and taskCounts -->
@@ -112,7 +108,6 @@ const handleFilterChange = (filter: TaskFilter) => {
         />
       </div>
 
-      <!-- Main Content - Task List -->
       <div class="lg:col-span-3">
         <!-- TODO: Pass the filteredBySearch tasks to TaskList (not just tasks) -->
         <!-- Also pass the currentFilter and listen to @toggleTask and @deleteTask events -->
@@ -123,12 +118,12 @@ const handleFilterChange = (filter: TaskFilter) => {
       </div>
     </div>
 
-    <!-- Task Form Modal -->
     <!-- TODO: Use v-model for two-way binding with isModalOpen -->
     <!-- Listen to @taskCreated event -->
     <TaskForm 
       :model-value="isModalOpen"
       @update:model-value="isModalOpen = $event"
     />
-  </div>
+    </div>
+  </DefaultLayout>
 </template>

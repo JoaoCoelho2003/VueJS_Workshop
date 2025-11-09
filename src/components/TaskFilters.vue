@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { TaskFilter } from '../types/task';
 
-// Define props
 interface Props {
   currentFilter: TaskFilter;
   taskCounts: {
@@ -24,7 +23,6 @@ defineProps<Props>();
     <h3 class="text-lg font-semibold text-gray-800 mb-4">Filter Tasks</h3>
     
     <div class="space-y-2">
-      <!-- All Tasks Button -->
       <!-- TODO: Add @click handler to change filter to 'all' -->
       <button 
         class="w-full text-left px-4 py-2 rounded-md transition-colors"
@@ -38,7 +36,6 @@ defineProps<Props>();
         </span>
       </button>
 
-      <!-- Active Tasks Button -->
       <!-- TODO: Add @click handler to change filter to 'active' -->
       <button 
         class="w-full text-left px-4 py-2 rounded-md transition-colors"
@@ -52,7 +49,6 @@ defineProps<Props>();
         </span>
       </button>
 
-      <!-- Completed Tasks Button -->
       <!-- TODO: Add @click handler to change filter to 'completed' -->
       <button 
         class="w-full text-left px-4 py-2 rounded-md transition-colors"

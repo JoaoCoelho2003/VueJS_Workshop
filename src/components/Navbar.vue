@@ -19,12 +19,10 @@ const route = useRoute();
   <nav class="bg-white shadow-lg">
     <div class="container mx-auto px-4">
       <div class="flex justify-between items-center h-16">
-        <!-- Logo -->
         <div class="flex-shrink-0">
           <h1 class="text-2xl font-bold text-indigo-600">Task Manager</h1>
         </div>
 
-        <!-- Desktop Navigation -->
         <div class="hidden md:flex space-x-4">
           <RouterLink 
             to="/" 
@@ -44,7 +42,6 @@ const route = useRoute();
           
         </div>
 
-        <!-- Mobile menu button -->
         <!-- TODO: Add @click directive to toggle mobile menu -->
         <div class="md:hidden">
           <button 
@@ -58,7 +55,6 @@ const route = useRoute();
         </div>
       </div>
 
-      <!-- Mobile Navigation -->
       <!-- TODO: Use v-show directive to toggle visibility based on isMobileMenuOpen -->
       <div class="md:hidden pb-4">
         <RouterLink 

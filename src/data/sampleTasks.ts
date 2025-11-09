@@ -6,7 +6,6 @@ import type { Task } from '../types/task';
  * Usage:
  * 1. Import this file in your component
  * 2. Use these tasks to populate your task list for testing
- * 3. Useful for quickly seeing how the app looks with data
  * 
  * Example:
  * import { sampleTasks } from '../data/sampleTasks';

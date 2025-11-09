@@ -33,7 +33,6 @@ const handleDelete = (id: number) => {
 
 <template>
   <div class="space-y-4">
-    <!-- Empty State -->
     <!-- TODO: Use v-if to show this only when isEmpty is true -->
     <div class="text-center py-12">
       <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import DefaultLayout from '../layouts/defaultLayout.vue';
+
 // TODO: This is the BONUS CHALLENGE page!
 // Students should create this page from scratch based on what they learned
 
@@ -25,20 +27,22 @@
 </script>
 
 <template>
-  <div class="max-w-7xl mx-auto">
-    <div class="mb-8">
-      <h1 class="text-4xl font-bold text-gray-900 mb-2">Task Statistics</h1>
-      <p class="text-gray-600">Overview of your task management performance</p>
-    </div>
+  <DefaultLayout>
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-8">
+        <h1 class="text-4xl font-bold text-gray-900 mb-2">Task Statistics</h1>
+        <p class="text-gray-600">Overview of your task management performance</p>
+      </div>
 
-    <!-- TODO: Implement the statistics page here -->
-    <div class="bg-white rounded-lg shadow-md p-8 text-center">
-      <p class="text-gray-500 text-lg">
-        🎯 This page is part of the bonus challenge!
-      </p>
-      <p class="text-gray-600 mt-2">
-        Create a statistics dashboard that displays insights about your tasks.
-      </p>
+      <!-- TODO: Implement the statistics page here -->
+      <div class="bg-white rounded-lg shadow-md p-8 text-center">
+        <p class="text-gray-500 text-lg">
+          🎯 This page is part of the bonus challenge!
+        </p>
+        <p class="text-gray-600 mt-2">
+          Create a statistics dashboard that displays insights about your tasks.
+        </p>
+      </div>
     </div>
-  </div>
+  </DefaultLayout>
 </template>
