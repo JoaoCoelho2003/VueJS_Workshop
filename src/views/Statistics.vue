@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import DefaultLayout from '../layouts/defaultLayout.vue';
 
-// TODO: This is the BONUS CHALLENGE page!
-// Students should create this page from scratch based on what they learned
-
 // HINTS:
 // 1. Import necessary functions from Vue (ref, computed, onMounted, etc.)
 // 2. Import the Task type from '../types/task'
@@ -16,13 +13,6 @@ import DefaultLayout from '../layouts/defaultLayout.vue';
 //    - Tasks by priority (count for each priority level)
 //    - Tasks by category (count for each unique category)
 // 5. Use Tailwind CSS for styling (cards, grids, colors)
-// 6. Display the statistics in a visually appealing way
-
-// BONUS POINTS:
-// - Add a simple bar chart representation using CSS
-// - Show the most productive category
-// - Display creation dates in a readable format
-// - Add animations or transitions
 
 </script>
 
@@ -37,7 +27,7 @@ import DefaultLayout from '../layouts/defaultLayout.vue';
       <!-- TODO: Implement the statistics page here -->
       <div class="bg-white rounded-lg shadow-md p-8 text-center">
         <p class="text-gray-500 text-lg">
-          🎯 This page is part of the bonus challenge!
+          This page is part of the bonus challenge!
         </p>
         <p class="text-gray-600 mt-2">
           Create a statistics dashboard that displays insights about your tasks.
