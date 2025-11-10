@@ -14,12 +14,7 @@ const props = defineProps<Props>();
 // TODO: Define emits for 'toggleTask' and 'deleteTask'
 // Both should pass the task id (number)
 
-// TODO: Create a computed property 'filteredTasks' that:
-// - Returns all tasks when filter is 'all'
-// - Returns only incomplete tasks (completed: false) when filter is 'active'
-// - Returns only completed tasks (completed: true) when filter is 'completed'
-
-// TODO: Create a computed property 'isEmpty' that returns true when filteredTasks has no items
+// TODO: Create a computed property 'isEmpty' that returns true when tasks has no items
 
 // Functions to handle events from TaskItem
 const handleToggle = (id: number) => {
@@ -45,7 +40,7 @@ const handleDelete = (id: number) => {
     </div>
 
     <!-- Task List -->
-    <!-- TODO: Use v-else and v-for to render TaskItem components for each task in filteredTasks -->
+    <!-- TODO: Use v-else and v-for to render TaskItem components for each task in tasks -->
     <!-- Don't forget to use :key with a unique identifier -->
     <!-- Pass the task as a prop and listen to @toggle and @delete events -->
     
